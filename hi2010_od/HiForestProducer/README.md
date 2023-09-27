@@ -1,87 +1,64 @@
 # HiForestProducerTool
-Tool to produce HiForest root file from the CMS 2010 heavy-ion open data.
 
-This repository hosts a set of simple examples that use CMSSW EDAnalyzers to extract trigger information and produce HiForest root file from CMS public heavy-ion data. Currently, this repository has two main branches, [2010](https://github.com/cms-legacydata-analyses/HiForestProducerTool/tree/2010) and [2011](https://github.com/cms-legacydata-analyses/HiForestProducerTool/tree/2011) corresponding to the CMS heavy-ion data that has been so far released.  Please choose the one you need as instructions may vary a little, and follow the instructions therein.
+Este repositório hospeda um conjunto de exemplos simples que usam CMSSW EDAnalyzers para extrair informações de Triggers e produzir um arquivo ROOT chamado HiForest a partir de dados públicos de íons pesados ​​​​do CMS que foram tomados no ano de 2010. Aqui terá algumas instruções de como rodar esses códigos e reproduzir a análise do espectro de dois múons.
 
-## Usage instructions
+## Instruções 
 
-### Prepare and compile
+### Preparando o Container
 
-First, you have to either
-- create a [VM](http://opendata.cern.ch/docs/cms-virtual-machine-2010 "CMS 2010 Virtual Machines: How to install") from the CMS Open Data website. Open the `CMS shell` terminal in the VM and create and intialize the CMSSW environment with 
+Para realizar essa análise, utilizaremos o [Docker container](http://opendata.cern.ch/docs/cms-guide-docker), para isso faça o download do docker que pode ser visto no link anterior e após o download copie e cole o seguinte comando no terminal do seu computador:
 
   ```
-  cmsrel CMSSW_3_9_2_patch2
-  cd CMSSW_3_9_2_patch2/src/
-  cmsenv
-  ```
-- or, set up a [Docker container](http://opendata.cern.ch/docs/cms-guide-docker) with
-
-  ```
-  docker run --name opendata -it  gitlab-registry.cern.ch/cms-cloud/cmssw-docker/cmssw_3_9_2_patch5-slc5_amd64_gcc434:2020-11-17-e0b0b7a6 /bin/bash
+  docker run --name hi2010_od -it  gitlab-registry.cern.ch/cms-cloud/cmssw-docker/cmssw_3_9_2_patch5-slc5_amd64_gcc434:latest /bin/bash
   ```
 
-Then follow these steps:
+Feito o download do container siga os seguintes passos:
 
-- Create a working directory and obtain the code from git:
+- Crie um diretório e obtenha o código através do git:
 
   ```
   mkdir HiForest
   cd HiForest
-  git clone -b 2010 git://github.com/cms-opendata-analyses/HiForestProducerTool.git HiForestProducer
+  git clone -b 2010 https://github.com/cms-opendata-analyses/HiForestProducerTool.git HiForestProducer
   cd HiForestProducer
   ```
 
-- Compile everything:
+- Compile os arquivos:
 
   ```
   scram b
   ```
   
-### Run the producer
+### Rodando o arquivo de configuração 
 
-- If you are using the VM, make symbolic links to the conditions database
+- Para ver se tudo está funcionando corretamente, mude no arquivo de configuração chamado hiforestanalyzer_cfg.py de `-1` para `10`, se tudo der certo, mude novamente para `-1` para rodar todos os eventos.
 
-  ```
-  ln -sf /cvmfs/cms-opendata-conddb.cern.ch/GR_R_39X_V6B GR_R_39X_V6B
-  ln -sf /cvmfs/cms-opendata-conddb.cern.ch/GR_R_39X_V6B.db GR_R_39X_V6B.db
-  ```
-
-  You should now see the `cms-opendata-conddb.cern.ch` link in the `/cvmfs` area.
-
-- If you are using the docker container, comment the line starting with  `process.GlobalTag.connect` in the configuration file `hiforestanalyzer_cfg.py`
-
-- Set the number of events in the configuration file. The default `-1` runs over all events.
-
-- Run the CMSSW executable in the background and dump the output in a log file with any name (full.log in this case)
+- Execute o arquivo de configuração da seguinte forma:
 
   ```
-  cmsRun hiforestanalyzer_cfg.py > full.log 2>&1 &
+  cmsRun hiforestanalyzer_cfg.py
   ```
 
-The job is configured to read the input root files from the full list of files CMS_HIRun2010_HIAllPhysics_ZS-v2_RECO_file_index.txt
+O arquivo de configuração está configurado para ler os arquivos ROOT de input da lista CMS_HIRun2010_HIAllPhysics_ZS-v2_RECO_file_index.txt
 
-It will produce the HiForestAOD_DATAtest.root file as an output.
+Será produzido um arquivo chamado HiForestAOD_DATAtest.root como output.
 
-NOTE: The first time you execute the job, it will take a long time (depending on your connection speed) to the point that it looks like it is not doing anything. That is fine. This is because the database payload files will be downloaded/cached locally in the VM or container. Later attempts should be faster.
+NOTA: Na primeira vez que você executar o trabalho, demorará muito (dependendo da velocidade da sua conexão) a ponto de parecer que não está fazendo nada. Mas está tudo certo.
 
-You can modify [src/Analyzer.cc](src/Analyzer.cc) file to include other object (tracks, electrons, etc) in the hiforest output. the instructions a given inside it.
+Você pode modificar o arquivo [src/Analyzer.cc](src/Analyzer.cc) para incluir outros objetos como: (tracks, elétrons, etc) no arquivo de output hiforest. As instruções são dadas no próprio arquivo.
 
 
-### Run the analysis
+### Rodando a análise 
 
-[forest2dimuon.C](forest2dimuon.C) is a script to analyze the output root file. It applies a trigger filter, does some basic analysis selections and produces a histogram with the dimuon invariant mass.
+O arquivo [forest2dimuon.C](forest2dimuon.C) é um script para analisar o arquivo de saida. Nele é aplicado um trigger "filtro" e é feito uma análise básica de seleção e produção de histogramas de massa invariante.
 
-Run this analysis script with
+Você pode ver também algumas variações desse arquivo na pasta hi2010.
+
+Para rodar esse arquivo, você precisará do [ROOT](https://root.cern/install/) instalado. Com o ROOT, execute o programa da seguinte forma:
 ```
 root -l forest2dimuon.C
 ```
-
-You can select another trigger, and you can see the name of the triggers in the producer output. Note that trigger versions may have changed during the data taking (e.g. `_v1` or `_v2` in the end of the trigger path name).
-
-## Continuous Integration
-
-This repository contains [a github workflow](.github/workflows/main.yml), which runs a test job on the CMS open data container using github free resources. It uses a docker container and runs a HiForest root file producer workflow defined in [commands.sh](commands.sh) and makes an example plot with [plot.sh](plot.sh). The ouput is returned as a github artifact. The workflow is triggered by a pull request. 
+Você pode selecionar outros Triggers para a sua análise, basta acessar o arquivo root pelo `TBrowser b` no ROOT e verificar a Tree de Triggers.
 
 
 
