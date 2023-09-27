@@ -22,7 +22,7 @@ Feito o download do container siga os seguintes passos:
   git clone -b 2010 https://github.com/cms-opendata-analyses/HiForestProducerTool.git HiForestProducer
   cd HiForestProducer
   ```
-
+  
 - Compile os arquivos:
 
   ```
@@ -49,7 +49,6 @@ Para juntar todos esses arquivos de saída em um único, execute o seguinte cód
 
 ```
 hadd nome_do_arquivo_final arquivo_1 arquivo_2 ....
-
 ```
 No final, deve ser criado um novo arquivo chamado nome_do_arquivo_final (mude para qualquer nome que quiser).
 
