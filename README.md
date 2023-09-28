@@ -1,6 +1,6 @@
 # HiForestProducerTool
 
-Este repositório hospeda um conjunto de exemplos simples que usam CMSSW EDAnalyzers para extrair informações de Triggers e produzir um arquivo ROOT chamado HiForest a partir de dados públicos de íons pesados ​​​​do CMS que foram tomados no ano de 2010. Aqui terá algumas instruções de como rodar esses códigos e reproduzir a análise do espectro de dois múons.
+Este repositório hospeda um conjunto de exemplos simples que usam CMSSW EDAnalyzers para extrair informações de Triggers e produzir um arquivo ROOT chamado HiForest a partir de dados públicos de íons pesados ​​​​do CMS que foram tomados no ano de 2011. Aqui terá algumas instruções de como rodar esses códigos e reproduzir a análise do espectro de dois múons.
 
 ## Instruções 
 
@@ -9,7 +9,7 @@ Este repositório hospeda um conjunto de exemplos simples que usam CMSSW EDAnaly
 Para realizar essa análise, utilizaremos o [Docker container](http://opendata.cern.ch/docs/cms-guide-docker), para isso faça o download do docker que pode ser visto no link anterior e após o download, copie e cole o seguinte comando no terminal do seu computador:
 
   ```
-  docker run --name hi2010_od -it  gitlab-registry.cern.ch/cms-cloud/cmssw-docker/cmssw_3_9_2_patch5-slc5_amd64_gcc434:latest /bin/bash
+  docker run --name hi2011_od -it  gitlab-registry.cern.ch/cms-cloud/cmssw-docker/cmssw_4_4_7-slc5_amd64_gcc434:latest /bin/bash
   ```
 
 Feito o download do container siga os seguintes passos:
@@ -19,7 +19,7 @@ Feito o download do container siga os seguintes passos:
   ```
   mkdir HiForest
   cd HiForest
-  git clone -b 2010 https://github.com/cms-opendata-analyses/HiForestProducerTool.git HiForestProducer
+  git clone -b 2011 https://github.com/cms-opendata-analyses/HiForestProducerTool.git HiForestProducer
   cd HiForestProducer
   ```
   
@@ -39,7 +39,7 @@ Feito o download do container siga os seguintes passos:
   cmsRun hiforestanalyzer_cfg.py
   ```
 
-O arquivo de configuração está configurado para ler os arquivos ROOT de input da lista CMS_HIRun2010_HIAllPhysics_ZS-v2_RECO_file_index.txt
+O arquivo de configuração está configurado para ler os arquivos ROOT de input da lista `CMS_HIRun2011_HIDiMuon_RECO_04Mar2013-v1_root_file_index.txt`
 
 Será produzido um arquivo chamado HiForestAOD_DATAtest.root como output.
 
@@ -58,8 +58,6 @@ Você também pode modificar o arquivo [src/Analyzer.cc](src/Analyzer.cc) para i
 ### Rodando a análise 
 
 O arquivo [forest2dimuon.C](forest2dimuon.C) é um script para analisar o arquivo de saida. Nele é aplicado um trigger "filtro" e é feito uma análise básica de seleção e produção de histogramas de massa invariante.
-
-Você pode ver também algumas variações desse arquivo na pasta hi2010.
 
 Para rodar esse arquivo, você precisará do [ROOT](https://root.cern/install/) instalado. Com o ROOT, execute o programa da seguinte forma:
 ```
