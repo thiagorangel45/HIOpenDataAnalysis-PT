@@ -19,7 +19,7 @@ Feito o download do container siga os seguintes passos:
   ```
   mkdir HiForest
   cd HiForest
-  git clone -b 2011 https://github.com/cms-opendata-analyses/HiForestProducerTool.git HiForestProducer
+  git clone -b 2011 https://github.com/thiagorangel45/HIOpenDataAnalysis.git HiForestProducer
   cd HiForestProducer
   ```
   
