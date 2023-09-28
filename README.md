@@ -57,7 +57,7 @@ Você também pode modificar o arquivo [src/Analyzer.cc](src/Analyzer.cc) para i
 
 ### Rodando a análise 
 
-O arquivo [forest2dimuon.C](forest2dimuon/forest2dimuon.C) é um script para analisar o arquivo de saida. Nele é aplicado um trigger "filtro" e é feito uma análise básica de seleção e produção de histogramas de massa invariante.
+O arquivo [forest2dimuon.C](forest2dimuon/forest2dimuon.C) é um script para analisar o arquivo de saida. Nele é aplicado um trigger "filtro" e é feito uma análise básica de seleção e produção de histogramas de massa invariante. Na pasta [forest2dimuon](forest2dimuon) você pode ver algumas alterações no arquivo original e os plots produzidos.
 
 Para rodar esse arquivo, você precisará do [ROOT](https://root.cern/install/) instalado. Com o ROOT, execute o programa da seguinte forma:
 ```
