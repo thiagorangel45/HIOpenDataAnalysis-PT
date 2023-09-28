@@ -119,6 +119,14 @@ void forest2dimuon(
 	}
 	} //ende of event loop
 	dimu_h->Draw("Hist");
+
+	TLatex label; label.SetNDC(true);
+        label.SetTextSize(0.040); label.DrawLatex(0.100, 0.920, "#bf{CMS Open Data}");
+        label.SetTextSize(0.025); label.DrawLatex(0.650, 0.800, "PbPb #sqrt{s_{NN}} = 2.76 TeV");
+        label.SetTextSize(0.025); label.DrawLatex(0.650, 0.760, "P^{#mu}_{T} > 0.0 GeV");
+        label.SetTextSize(0.025); label.DrawLatex(0.650, 0.720, "#lbar#eta#lbar < 2.4");
+        label.SetTextSize(0.025); label.DrawLatex(0.650, 0.680, "Trigger: HLT_HIL1DoubleMuOpen");
+
 	c1->Print("diMuon_mass_2010_1.png");
 	//	exit();
 } 
