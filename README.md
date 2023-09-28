@@ -39,7 +39,7 @@ Feito o download do container siga os seguintes passos:
   cmsRun hiforestanalyzer_cfg.py
   ```
 
-O arquivo de configuração está configurado para ler os arquivos ROOT de input da lista CMS_HIRun2010_HIAllPhysics_ZS-v2_RECO_file_index.txt
+O arquivo de configuração está configurado para ler os arquivos ROOT de input da lista `CMS_HIRun2010_HIAllPhysics_ZS-v2_RECO_file_index.txt`
 
 Será produzido um arquivo chamado HiForestAOD_DATAtest.root como output.
 
