@@ -15,10 +15,10 @@ process.HiForest.inputLines = cms.vstring("HiForest V3",)
 version = 'no git info'
 process.HiForest.HiForestVersion = cms.string(version)
 
-goodJSON = 'Cert_161366-161474_2760GeV_PromptReco_Collisions11_JSON_MuonPhys.txt'
+goodJSON = 'Cert_181530-183126_HI7TeV_PromptReco_Collisions11_JSON_MuonPhys.txt'
 myLumis = LumiList.LumiList(filename = goodJSON).getCMSSWString().split(',')
 import FWCore.Utilities.FileUtils as FileUtils
-files2011data = FileUtils.loadListFromFile ('CMS_Run2011A_AllPhysics2760_15.txt')
+files2011data = FileUtils.loadListFromFile ('CMS_HIRun2011_HIDiMuon_RECO_04Mar2013-v1_root_file_index.txt')
 process.source = cms.Source("PoolSource",
     fileNames = cms.untracked.vstring(*files2011data    
     )
