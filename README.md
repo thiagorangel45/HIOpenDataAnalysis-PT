@@ -31,7 +31,7 @@ Feito o download do container siga os seguintes passos:
   
 ### Rodando o arquivo de configuração 
 
-- Nesse arquivo de configuração está configurado para rodar apenas '100' eventos, isso para ver se o código está rodando corretamente. Caso não tenha nenhum output de erro e o arquivo de output ROOT seja produzido corretamente, troque de '100' para '-1' para poder rodar todos os eventos do arquivo de input. 
+- Nesse arquivo de configuração está configurado para rodar apenas `100` eventos, isso para ver se o código está rodando corretamente. Caso não tenha nenhum output de erro e o arquivo de output ROOT seja produzido corretamente, troque de `100` para `-1` para poder rodar todos os eventos do arquivo de input. 
 
 - Execute o arquivo de configuração da seguinte forma:
 
