@@ -31,7 +31,7 @@ Feito o download do container siga os seguintes passos:
   
 ### Rodando o arquivo de configuração 
 
-- Para ver se tudo está funcionando corretamente, mude no arquivo de configuração chamado hiforestanalyzer_cfg.py de `-1` para `10`, se não houver nenhum erro, mude novamente para `-1` para rodar todos os eventos.
+- Nesse arquivo de configuração está configurado para rodar apenas '100' eventos, isso para ver se o código está rodando corretamente. Caso não tenha nenhum output de erro e o arquivo de output ROOT seja produzido corretamente, troque de '100' para '-1' para poder rodar todos os eventos do arquivo de input. 
 
 - Execute o arquivo de configuração da seguinte forma:
 
