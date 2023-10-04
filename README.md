@@ -63,7 +63,7 @@ Para rodar esse arquivo, você precisará do [ROOT](https://root.cern/install/) 
 ```
 root -l forest2dimuon.C
 ```
-Você pode selecionar outros Triggers para a sua análise, basta acessar o arquivo root pelo `TBrowser b` no ROOT e verificar a Tree de Triggers. Para rodar os eventos de colisões próton-próton de referência, você só precisará mudar os arquivo de input, o arquivo JSON e trocar `datasetName = cms.string("HIDiMuon")` do hiforestanalyzer.py para `datasetName = cms.string("AllPhysics2760")`.
+Você pode selecionar outros Triggers para a sua análise, basta acessar o arquivo root pelo `TBrowser b` no ROOT e verificar a Tree de Triggers. Para rodar os eventos de colisões próton-próton de referência, você só precisará mudar os arquivo de input, o arquivo JSON e trocar `datasetName = cms.string("HIDiMuon")` do arquivo hiforestanalyzer.py para `datasetName = cms.string("AllPhysics2760")`.
 
 
 
