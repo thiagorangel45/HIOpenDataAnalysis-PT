@@ -1,6 +1,6 @@
 # HiForestProducerTool
 
-Este repositório hospeda um conjunto de exemplos simples que usam CMSSW EDAnalyzers para extrair informações de Triggers e produzir um arquivo ROOT chamado HiForest a partir de dados públicos de íons pesados ​​​​do CMS que foram tomados no ano de 2011. Aqui terá algumas instruções de como rodar esses códigos e reproduzir a análise do espectro de dois múons.
+Este repositório hospeda um conjunto de exemplos simples que usam CMSSW EDAnalyzers para extrair informações de Triggers e produzir um arquivo ROOT chamado HiForest a partir de dados públicos de íons pesados ​​​​e colisões próton-próton do CMS que foram tomados no ano de 2011. Aqui terá algumas instruções de como rodar esses códigos e reproduzir a análise do espectro de dois múons.
 
 ## Instruções 
 
@@ -31,7 +31,7 @@ Feito o download do container siga os seguintes passos:
   
 ### Rodando o arquivo de configuração 
 
-- Nesse arquivo de configuração está configurado para rodar apenas `100` eventos, isso para ver se o código está rodando corretamente. Caso não tenha nenhum output de erro e o arquivo de output ROOT seja produzido corretamente, troque de `100` para `-1` para poder rodar todos os eventos do arquivo de input. 
+- Nesse arquivo de configuração está configurado para rodar apenas `100` eventos de colisões PbPb, isso para ver se o código está rodando corretamente. Caso não tenha nenhum output de erro e o arquivo de output ROOT seja produzido corretamente, troque de `100` para `-1` para poder rodar todos os eventos do arquivo de input. 
 
 - Execute o arquivo de configuração da seguinte forma:
 
@@ -63,7 +63,7 @@ Para rodar esse arquivo, você precisará do [ROOT](https://root.cern/install/) 
 ```
 root -l forest2dimuon.C
 ```
-Você pode selecionar outros Triggers para a sua análise, basta acessar o arquivo root pelo `TBrowser b` no ROOT e verificar a Tree de Triggers.
+Você pode selecionar outros Triggers para a sua análise, basta acessar o arquivo root pelo `TBrowser b` no ROOT e verificar a Tree de Triggers. Para rodar os eventos de colisões próton-próton de referência, você só precisará mudar os arquivo de input, o arquivo JSON e trocar `datasetName = cms.string("HIDiMuon")` do hiforestanalyzer.py para `datasetName = cms.string("AllPhysics2760")`.
 
 
 
