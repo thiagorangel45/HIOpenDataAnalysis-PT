@@ -67,7 +67,7 @@ root -l forest2dimuon.C
 ```
 
 <p align="center">
-  <img src="forest2dimuon/diMuon_mass_2011_PbPb_1.png" alt="Texto Alternativo" width="700">
+  <img src="forest2dimuon/diMuon_mass_2010_PbPb_1.png" alt="Texto Alternativo" width="700">
 </p>
 
 Você pode selecionar outros Triggers para a sua análise, basta acessar o arquivo root pelo `TBrowser b` no ROOT e verificar a Tree de Triggers.
