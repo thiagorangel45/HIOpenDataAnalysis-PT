@@ -63,8 +63,9 @@ Você pode ver também algumas variações desse arquivo na pasta hi2010.
 
 Para rodar esse arquivo, você precisará do [ROOT](https://root.cern/install/) instalado. Com o ROOT, execute o programa da seguinte forma:
 ```
-root -l forest2dimuon.C
+root -l forest2dimuon_2010PbPb_mass.C
 ```
+E é produzido um plot como esse:
 
 <p align="center">
   <img src="forest2dimuon/diMuon_mass_2010_PbPb_1.png" alt="Texto Alternativo" width="700">
