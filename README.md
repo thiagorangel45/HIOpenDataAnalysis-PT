@@ -61,8 +61,14 @@ O arquivo [forest2dimuon.C](forest2dimuon/forest2dimuon.C) é um script para ana
 
 Para rodar esse arquivo, você precisará do [ROOT](https://root.cern/install/) instalado. Com o ROOT, execute o programa da seguinte forma:
 ```
-root -l forest2dimuon.C
+root -l forest2dimuon_2011PbPb_mass.C
 ```
+E é produzido um plot como esse:
+
+<p align="center">
+  <img src="forest2dimuon/diMuon_mass_2011_PbPb_1.png" alt="Texto Alternativo" width="700">
+</p>
+
 Você pode selecionar outros Triggers para a sua análise, basta acessar o arquivo root pelo `TBrowser b` no ROOT e verificar a Tree de Triggers. Para rodar os eventos de colisões próton-próton de referência, você só precisará mudar os arquivo de input, o arquivo JSON e trocar `datasetName = cms.string("HIDiMuon")` do arquivo hiforestanalyzer.py para `datasetName = cms.string("AllPhysics2760")`.
 
 
