@@ -69,7 +69,21 @@ E é produzido um plot como esse:
   <img src="forest2dimuon/diMuon_mass_2011_PbPb_1.png" alt="Texto Alternativo" width="700">
 </p>
 
-Você pode selecionar outros Triggers para a sua análise, basta acessar o arquivo root pelo `TBrowser b` no ROOT e verificar a Tree de Triggers. Para rodar os eventos de colisões próton-próton de referência, você só precisará mudar os arquivo de input, o arquivo JSON e trocar `datasetName = cms.string("HIDiMuon")` do arquivo hiforestanalyzer.py para `datasetName = cms.string("AllPhysics2760")`.
+Você pode selecionar outros Triggers para a sua análise, basta acessar o arquivo root pelo `TBrowser b` no ROOT e verificar a Tree de Triggers. 
+
+### Rodando a análise para os dados de colisões pp:
+
+Para rodar os eventos de colisões próton-próton de referência, você só precisará mudar os arquivo de input, o arquivo JSON e trocar `datasetName = cms.string("HIDiMuon")` do arquivo hiforestanalyzer.py para `datasetName = cms.string("AllPhysics2760")` e seguindo todos esses passos novamente e executando o arquivo para o próton-próton:
+
+```
+root -l forest2dimuon_2011pp_mass.C
+```
+
+E é produzido um plot como esse:
+
+<p align="center">
+  <img src="forest2dimuon/diMuon_mass_2011_pp_1.png" alt="Texto Alternativo" width="700">
+</p>
 
 
 
