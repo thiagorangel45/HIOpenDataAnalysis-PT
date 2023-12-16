@@ -6,7 +6,7 @@ Vamos usar um contêiner Docker para realizar esta análise. Você pode baixar o
   docker run -it --name hi2013_od -P -p 5901:5901 -p 6080:6080 -v ${HOME}/hi2013_od:/code/hi2013_od gitlab-registry.cern.ch/cms-cloud/cmssw-docker-opendata/cmssw_5_3_20-slc6_amd64_gcc472 /bin/bash
   ```
 
-Depois de baixar o contêiner, você verá as pastas neste repositório. Ao entrar na pasta 'test':[test](HeavyIonsAnalysis/JetAnalysis/test) você encontrará alguns scripts em Python. No entanto, baixaremos outro script usando o seguinte comando (na verdade, não é um script diferente; é apenas uma modificação simples do `runForest_pPb_Data_53X.py`:
+Depois de baixar o contêiner, você verá as pastas neste repositório. Ao entrar na pasta [test](HeavyIonsAnalysis/JetAnalysis/test), você encontrará alguns scripts em Python. No entanto, baixaremos outro script usando o seguinte comando (na verdade, não é um script diferente; é apenas uma modificação simples do `runForest_pPb_Data_53X.py`:
 
 ```
 wget https://raw.githubusercontent.com/cms-opendata-validation/HeavyIonDataValidation/53X/runForest_pPb_DATA_53X_OD.py
