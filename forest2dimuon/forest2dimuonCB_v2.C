@@ -58,14 +58,14 @@ void forest2dimuonCB_v2(
 	TTree *MuTree = (TTree*)f1->Get(Form("%s/Muons",Collection.Data()));
 	TCanvas *ca = new TCanvas("ca","DiMuone",900,1000);
 	ca->SetTickx(); // Ticks na parte superior do eixo X
-        ca->SetTicky(); // Ticks na parte esquerda do eixo y
-	TH1F *dimu_h = new TH1F("","", 35, 2.7, 3.4 );
+    ca->SetTicky(); // Ticks na parte esquerda do eixo y
+	TH1F *dimu_h = new TH1F("","", 35, 2.6, 4 );
 	//dimu_h->SetStats(kFALSE);
-        dimu_h->GetXaxis()->SetTitle("m_{#mu#mu}[GeV/c^{2}]"); 
-        dimu_h->GetYaxis()->SetTitle("Events/(0.02 GeV/c^{2})");
+    dimu_h->GetXaxis()->SetTitle("m_{#mu#mu}[GeV/c^{2}]"); 
+    dimu_h->GetYaxis()->SetTitle("Events/(0.02 GeV/c^{2})");
 	dimu_h->SetFillColor(kYellow);
-        ca->SetFrameLineColor(1);
-        ca->SetFrameFillColor(0);
+    ca->SetFrameLineColor(1);
+    ca->SetFrameFillColor(0);
 	ca->SetFillColor(10);
 	//c1->SetLogx();
 	//ca->SetLogy();
@@ -152,85 +152,91 @@ void forest2dimuonCB_v2(
 	dimu_h->Draw("P");
 	dimu_h->SetMarkerStyle(20);
 	
-	
  	const float psi_pdg_mass = 3.096916;
-	double minMass=2.7;
-        double maxMass=3.4;
+	double minMass=2.6;
+    double maxMass=4;
 	
 	// Declare observable x
-  	RooRealVar x("x","m_{#mu#mu}[GeV/c^{2}]",2.7,3.4);
-        RooDataHist dh("dh","dh",x,RooFit::Import(*dimu_h));
+  	RooRealVar x("x","m_{#mu#mu}[GeV/c^{2}]",2.6 ,4);
+    RooDataHist dh("dh","dh",x,RooFit::Import(*dimu_h));
         
  	//Crystal ball for the J/psi
-  	RooRealVar mean_jpsi("mean_jpsi","mean_jpsi",3.09,2.8,3.3);
+  	RooRealVar mean_jpsi("mean_jpsi","mean_jpsi",3.09,2.6, 4);
   	RooRealVar sigma_jpsi("sigma_jpsi","sigma_jpsi",0.04,0,0.1);
   	RooRealVar alpha("alpha","alpha",1.5);
   	RooRealVar n("n","n",3);
  	RooCBShape *jpsi = new RooCBShape("jpsi","crystal ball PDF",x,mean_jpsi,sigma_jpsi,alpha,n);
+
+	//inicio da gaussiana
+	RooRealVar mean_psi2s("mean_psi2s", "mean_psi2s", 3.686109, 2.6, 4);
+	RooRealVar sigma_psi2s("sigma_psi2s", "sigma_psi2s",  0.08, 0, 0.1);
+	RooGaussian *psi2s = new RooGaussian("psi2s", "gaussian PDF",  x, mean_psi2s, sigma_psi2s);
          
-        //Exponential background
- 	RooRealVar a("a","a", 0, -5, 5); //-0.85
- 	RooExponential bkg("exp","exp",x,a);
+    //Exponential background
+ 	RooRealVar a("a","a", 0, -5, 5); //0
+ 	RooExponential *bkg = new RooExponential("exp", "exponential background", x, a);
+
+	//Declarando o numero de eventos de j/psi e psi2s
+	RooRealVar NJpsi("NJpsi", "Numero de eventos de J/Psi",0, 300); //300
+	RooRealVar NPsi2S("NPsi2S", "Numero de eventos de Psi(2S)", 0, 50);//100
+	RooRealVar Nbkg("Nbkg", "Numero de eventos de background", 0, 1800);//1800
  	 
  	RooRealVar fsig("fsig","signal",0.25, 0., 1.);
-        RooAddPdf sum("sum","sum",RooArgList(*jpsi,bkg),RooArgList(fsig),kTRUE);
+    RooAddPdf sum("sum","sum",RooArgList(*jpsi, *psi2s, *bkg),RooArgList(NJpsi, NPsi2S, Nbkg));
 
 	sum.getParameters(dh)->setAttribAll("Constant",kTRUE) ;
-        fsig.setConstant(kFALSE) ;
+    fsig.setConstant(kFALSE) ;
          
-        //sum.fitTo(dh,Range(2.6, 3.5));
+    //sum.fitTo(dh,Range(2.6, 3.5));
          
-        RooPlot* mframe = x.frame(Title("Fit of invariant mass in 2010 PbPb collision"));
+    RooPlot* mframe = x.frame(Title("Fit of invariant mass in 2010 PbPb collision"));
  	dh.plotOn(mframe);
-        sum.plotOn(mframe, FillStyle(3004), FillColor(kBlack), LineColor(kBlack), DrawOption("LF"), Range(2.7, 3.4));
-        
-        // Plotar a componente background com cor azul e tracejada
-        sum.plotOn(mframe, Components(bkg), FillStyle(3001), FillColor(kBlue), DrawOption("LF"), LineStyle(kDashed));
+    sum.plotOn(mframe, FillStyle(3004), FillColor(kBlack), LineColor(kBlack), DrawOption("LF"), Range(2.6, 4));    
+    sum.plotOn(mframe, Components(*bkg), FillStyle(1001), FillColor(kBlue), DrawOption("LF"), LineStyle(kDashed));
     
-        // Desenhando o mframe     
-        mframe->Draw();     
-         
-        // Adicionando a legenda ao gráfico
-         
-        TLegend *legend = new TLegend(0.15, 0.3, 0.3, 0.5);  
-        legend->SetTextSize(0.028);  
-        legend->SetBorderSize(0);  
+    // Desenhando o mframe     
+    mframe->Draw();     
 
-        // Adicionar entrada para os dados
-        TLegendEntry *entry1 = legend->AddEntry(dimu_h, "Data", "lep");
-        entry1->SetMarkerStyle(20);
+	/* 
+    // Adicionando a legenda ao gráfico
+    TLegend *legend = new TLegend(0.15, 0.3, 0.3, 0.5);  
+    legend->SetTextSize(0.028);  
+    legend->SetBorderSize(0);  
 
-        // Adicionar entrada para o ajuste da Crystall ball
-        TLegendEntry *entry2 = legend->AddEntry(jpsi, "Fit", "l");
-        entry2->SetLineWidth(2.0);  // Ajustar a largura da linha
+    // Adicionar entrada para os dados
+    TLegendEntry *entry1 = legend->AddEntry(dimu_h, "Data", "lep");
+    entry1->SetMarkerStyle(20);
 
-        // Adicionar entrada para o ajuste do Background
-        TLegendEntry *entry3 = legend->AddEntry(jpsi, "Background", "l");
-        entry3->SetLineColor(kBlue);       
-        entry3->SetLineStyle(kDashed);
+    // Adicionar entrada para o ajuste da Crystall ball
+    TLegendEntry *entry2 = legend->AddEntry(jpsi, "Fit", "l");
+    entry2->SetLineWidth(2.0);  // Ajustar a largura da linha
+
+    // Adicionar entrada para o ajuste do Background
+    TLegendEntry *entry3 = legend->AddEntry(jpsi, "Background", "l");
+    entry3->SetLineColor(kBlue);       
+    entry3->SetLineStyle(kDashed);
     
-        // Plotando a legenda
-        legend->Draw("same");
+    // Plotando a legenda
+    legend->Draw("same");
     
-        // Adicionando texto no canvas
-        TLatex *latex = new TLatex();
-        latex->SetNDC(); 
-        latex->SetTextSize(0.05);
-        latex->SetTextColor(kBlack);
-        latex->DrawLatex(0.15, 0.80, "CMS Open Data");
+    // Adicionando texto no canvas
+    TLatex *latex = new TLatex();
+    latex->SetNDC(); 
+    latex->SetTextSize(0.05);
+    latex->SetTextColor(kBlack);
+    latex->DrawLatex(0.15, 0.80, "CMS Open Data");
     
-        latex->SetTextSize(0.03); // para deixar o resto com outro tamanho de fonte
-        latex->DrawLatex(0.15, 0.74, "PbPb 2010 #sqrt{s_{NN}} = 2.76 TeV");
-        latex->DrawLatex(0.15, 0.70, "P^{#mu}_{T} > 2.0 GeV");
-        latex->DrawLatex(0.15, 0.66, "#lbar#eta#lbar < 2.4");
-        latex->DrawLatex(0.15, 0.62, "Trigger: HLT_HIL1DoubleMuOpen");
+    latex->SetTextSize(0.03); // para deixar o resto com outro tamanho de fonte
+    latex->DrawLatex(0.15, 0.74, "PbPb 2010 #sqrt{s_{NN}} = 2.76 TeV");
+    latex->DrawLatex(0.15, 0.70, "P^{#mu}_{T} > 2.0 GeV");
+    latex->DrawLatex(0.15, 0.66, "#lbar#eta#lbar < 2.4");
+    latex->DrawLatex(0.15, 0.62, "Trigger: HLT_HIL1DoubleMuOpen");
         
-        TFile* outputFile = new TFile("dimuon_mass_fit_2010_PbPb_2.root", "RECREATE");
-        outputFile->cd();
-        dimu_h->Write();
-        outputFile->Close();
-        
-        // Salvando o plot como um arquivo .png  
+    TFile* outputFile = new TFile("dimuon_mass_fit_2010_PbPb_2.root", "RECREATE");
+    outputFile->cd();
+    dimu_h->Write();
+    outputFile->Close();
+    */
 	ca->Print("diMuon_mass_2010_PbPb_2.png");
 
 } 
