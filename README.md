@@ -3,7 +3,7 @@
 Vamos usar um contêiner Docker para realizar esta análise. Você pode baixar o Docker a partir do seguinte link: [Docker container](https://www.docker.com/products/docker-desktop/). Após o download, abra seu terminal e cole o seguinte código: 
 
   ```
-  docker run -it --name hi2015_od -P -p 5901:5901 -p 6080:6080 -v ${HOME}/IC-CBPF/docker-container/hi2015_od:/code/hi2015_od gitlab-registry.cern.ch/cms-cloud/cmssw-docker-opendata/cmssw_7_5_8_patch3-slc6_amd64_gcc491 /bin/bash
+  docker run -it --name hi2015_od -P -p 5901:5901 -p 6080:6080 -v ${HOME}/hi2015_od:/code/hi2015_od gitlab-registry.cern.ch/cms-cloud/cmssw-docker-opendata/cmssw_7_5_8_patch3-slc6_amd64_gcc491 /bin/bash
   ```
 
 Depois de baixar o contêiner, você verá as pastas neste repositório. Ao entrar na pasta [test](HeavyIonsAnalysis/JetAnalysis/test), você encontrará alguns scripts em Python. No entanto, baixaremos outro script usando o seguinte comando (na verdade, não é um script diferente; é apenas uma modificação simples do `runForestAOD_pp_DATA_75X.py`:
