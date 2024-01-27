@@ -71,7 +71,7 @@ and produce a plot like this:
   <img src="forest2dimuon/diMuon_mass_2010_PbPb_1.png" alt="Texto Alternativo" width="700">
 </p>
 
-You can select other triggers for your analysis by accessing the ROOT file using `TBrowser b` in ROOT and checking the Trigger Tree.
+You can select other triggers for your analysis by accessing the ROOT file using `TBrowser b` in ROOT and checking the Trigger Tree..
 
 
 
