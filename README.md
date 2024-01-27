@@ -64,7 +64,7 @@ root -l forest2dimuon_2011PbPb_mass.C
 ```
 
 <p align="center">
-  <img src="forest2dimuon/diMuon_mass_2011_PbPb_1.png" alt="Texto Alternativo" width="700">
+  <img src="forest2dimuon/PbPb/diMuon_mass_2011_PbPb_1.png" alt="Texto Alternativo" width="700">
 </p>
 
 
@@ -82,6 +82,6 @@ root -l forest2dimuon_2011pp_mass.C
 You will produce this plot:
 
 <p align="center">
-  <img src="forest2dimuon/diMuon_mass_2011_pp_1.png" alt="Texto Alternativo" width="700">
+  <img src="forest2dimuon/pp/diMuon_mass_2011_pp_1.png" alt="Texto Alternativo" width="700">
 </p>
 
