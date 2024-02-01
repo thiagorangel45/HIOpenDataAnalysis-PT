@@ -1,0 +1,12 @@
+cff-version: 1.2.0
+message: "If you use this software, please cite it as below."
+authors:
+  - family-names: Rangel Monteiro
+    given-names: Thiago
+    orcid: https://orcid.org/0009-0002-2936-6666
+title: "2011 PbPb and pp dataset"
+version: 0.1.2
+identifiers:
+  - type: doi
+    value: 10.5281/zenodo.10606247
+date-released: 2021-08-11
