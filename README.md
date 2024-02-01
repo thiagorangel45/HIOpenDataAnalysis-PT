@@ -2,6 +2,8 @@
 
 Este repositório hospeda um conjunto de exemplos simples que usam CMSSW EDAnalyzers para extrair informações de Triggers e produzir um arquivo ROOT chamado HiForest a partir de dados públicos de íons pesados ​​​​do CMS que foram tomados no ano de 2010. Aqui terá algumas instruções de como rodar esses códigos e reproduzir a análise do espectro de dois múons.
 
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.10606131.svg)](https://doi.org/10.5281/zenodo.10606131)
+
 ## Instruções 
 
 ### Preparando o Container
